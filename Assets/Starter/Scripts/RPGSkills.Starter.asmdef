@@ -1,0 +1,17 @@
+{
+    "name": "RPGSkills.Starter",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5a96c9e46339cf5439d3474dd34dd6fa",
+        "GUID:510f4da34eb31374785d19275ddf9e92"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
