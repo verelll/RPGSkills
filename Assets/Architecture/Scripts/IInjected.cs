@@ -4,7 +4,7 @@
     {
         public Container ContainerReference { get; }
 
-        internal void SetContainer(Container container);
+        protected internal void SetContainer(Container container);
 
         protected T GetShared<T>() where T : Shared
         {

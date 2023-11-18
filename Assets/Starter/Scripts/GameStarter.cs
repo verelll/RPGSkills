@@ -10,6 +10,7 @@ namespace RPGSkills.Starter
         
         private void Start()
         {
+            _mainContainer = new Container();
             _mainContainer.AddShared<UIManager>();
             
             _mainContainer.InitShared();

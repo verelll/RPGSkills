@@ -2,13 +2,11 @@ namespace RPGSkills.Architecture
 {
     public abstract class Shared : IInjected
     {
-        private Container _containerReference;
-
-        Container IInjected.ContainerReference => _containerReference;
+        public Container ContainerReference { get; private set; }
 
         void IInjected.SetContainer(Container container)
         {
-            _containerReference = container;
+            ContainerReference = container;
         }
 
         public virtual void Init() { }
