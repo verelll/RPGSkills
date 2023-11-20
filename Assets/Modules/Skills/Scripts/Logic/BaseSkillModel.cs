@@ -14,6 +14,5 @@ namespace RPGSkills.Skills
         public abstract void DeactivateSkill();
 
         internal BaseSkillModel(BaseSkillConfig config) { }
-
     }
 }

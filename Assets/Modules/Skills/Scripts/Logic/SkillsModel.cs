@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using RPGSkills.Architecture;
 using RPGSkills.GameResources;
-using UnityEngine;
 
 namespace RPGSkills.Skills
 {

@@ -2,7 +2,6 @@
 using System.Linq;
 using RPGSkills.Architecture;
 using RPGSkills.Skills;
-using UnityEditor;
 using UnityEngine;
 
 namespace RPGSkills.SkillsBuilder
