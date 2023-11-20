@@ -89,10 +89,12 @@ namespace RPGSkills.Skills
                     return false;
             }
 
-            if (skillConfig.PrevSkills.Any(IsSkillLearned))
+            if (skillConfig.ActiveByDefault) 
                 return true;
-
-            return false;
+            
+            var anyPrevSkillLearned = skillConfig.PrevSkills.Any(s => IsSkillLearned(s));
+            var anyNextSkillLearned = skillConfig.NextSkills.Any(s => IsSkillLearned(s));
+            return anyPrevSkillLearned || anyNextSkillLearned;
         }
         
         internal bool CanForgetSkill(BaseSkillConfig skillConfig, bool applyNextSkills = true)
@@ -108,8 +110,9 @@ namespace RPGSkills.Skills
 
             if (!applyNextSkills)
                 return true;
-            
-            return !skillConfig.NextSkills.Any(IsSkillLearned);
+
+            var anyNextSkillLearned = skillConfig.NextSkills.Any(s => IsSkillLearned(s));
+            return !anyNextSkillLearned;
         }
 
         private void LearnSkill(BaseSkillConfig skillConfig, bool applyPrice = true)
@@ -126,17 +129,13 @@ namespace RPGSkills.Skills
             OnSkillLearned?.Invoke(skillConfig);
         }
         
-        private void ForgetSkill(
-            BaseSkillConfig skillConfig, 
-            bool removeElement = true, 
-            bool applyCheckNextSkills = true)
+        private void ForgetSkill(BaseSkillConfig skillConfig, bool applyCheckNextSkills = true)
         {
             if(!CanForgetSkill(skillConfig, applyCheckNextSkills))
                 return;
 
             var id = skillConfig.ID;
-            if(removeElement)
-                _learnedSkills.Remove(id);
+            _learnedSkills.Remove(id);
             
             _skillPoints.AddValue(skillConfig.Price);
             OnSkillForgotten?.Invoke(skillConfig);
@@ -144,12 +143,10 @@ namespace RPGSkills.Skills
         
         private void ForgetAllSkills()
         {
-            foreach (var pair in _learnedSkills)
+            foreach (var pair in _learnedSkills.ToList())
             {
-                ForgetSkill(pair.Value, false, false);
+                ForgetSkill(pair.Value, false);
             }
-            
-            _learnedSkills.Clear();
         }
         
 #endregion
