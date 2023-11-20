@@ -1,0 +1,16 @@
+{
+    "name": "RPGSkills.GameResources",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5a96c9e46339cf5439d3474dd34dd6fa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
