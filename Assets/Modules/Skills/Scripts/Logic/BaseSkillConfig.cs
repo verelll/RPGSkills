@@ -1,24 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGSkills.Skills
 {
-    [CreateAssetMenu(
-        menuName = "RPGSkills/Skills/" + nameof(BaseSkillConfig),
-        fileName = nameof(BaseSkillConfig))]
-    public class BaseSkillConfig : ScriptableObject
+    public abstract class BaseSkillConfig : ScriptableObject
     {
+        [SerializeField] private int _id;
         [SerializeField] private string _desciption;
         [SerializeField] private Sprite _icon;
 
-        [SerializeField] private List<BaseSkillConfig> _parents;
-        [SerializeField] private List<BaseSkillConfig> _childs;
+        [SerializeField] private int _skillPrice;
 
-        public string ID => name;
+        [SerializeField] private bool _activeByDefault;
+        
+        [SerializeField] private List<BaseSkillConfig> _nextSkills;
+        [SerializeField] private List<BaseSkillConfig> _prevSkills;
+
+        public int ID => _id;
         public string Description => _desciption;
         public Sprite Icon => _icon;
+        public int Price => _skillPrice;
+        public bool ActiveByDefault => _activeByDefault;
+        
+        public IReadOnlyList<BaseSkillConfig> NextSkills => _nextSkills;
+        public IReadOnlyList<BaseSkillConfig> PrevSkills => _prevSkills;
 
-        public IReadOnlyList<BaseSkillConfig> Parents => _parents;
-        public IReadOnlyList<BaseSkillConfig> Childs => _childs;
+        public abstract BaseSkillModel CreateModel();
     }
 }
