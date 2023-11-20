@@ -9,8 +9,12 @@ namespace RPGSkills.Architecture
             ContainerReference = container;
         }
 
+        public virtual void PreInit() { }
         public virtual void Init() { }
+        public virtual void AfterInit() { }
         public virtual void Dispose() { }
+
+        protected Shared() { }
     }
 }
 

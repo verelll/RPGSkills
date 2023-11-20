@@ -8,6 +8,9 @@ namespace RPGSkills.Architecture
     {
         private Dictionary<Type, Shared> _sharedByTypes;
 
+        public bool Initialized { get; private set; }
+        public event Action OnInitialized;
+        
         public Container()
         {
             _sharedByTypes = new Dictionary<Type, Shared>();
@@ -47,7 +50,24 @@ namespace RPGSkills.Architecture
             {
                 var shared = pair.Value;
                 InjectAt(shared);
+            }
+            
+            foreach (var pair in _sharedByTypes)
+            {
+                var shared = pair.Value;
+                shared.PreInit();
+            }
+            
+            foreach (var pair in _sharedByTypes)
+            {
+                var shared = pair.Value;
                 shared.Init();
+            }
+            
+            foreach (var pair in _sharedByTypes)
+            {
+                var shared = pair.Value;
+                shared.AfterInit();
             }
         }
 
