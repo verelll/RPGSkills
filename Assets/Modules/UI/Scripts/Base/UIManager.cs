@@ -6,7 +6,7 @@ namespace RPGSkills.UI
 {
     public sealed class UIManager : Shared
     {
-        private Dictionary<UIScreenType, UIScreen> _screens;
+        private Dictionary<UIScreenType, UIScreen> _uiScreens;
 
         public UIHierarchy Hierarchy
         {
@@ -21,11 +21,13 @@ namespace RPGSkills.UI
 
         private UIHierarchy _uiHierarchy;
 
-
-        public override void Init()
+        public UIManager()
         {
-            _screens = new Dictionary<UIScreenType, UIScreen>();
-            
+            _uiScreens = new Dictionary<UIScreenType, UIScreen>();
+        }
+        
+        public override void AfterInit()
+        {
             InitScreens();
         }
 
@@ -36,26 +38,20 @@ namespace RPGSkills.UI
 
         private void InitScreens()
         {
-            var screenObjects = Hierarchy.Screens;
-            foreach (var screen in screenObjects)
+            var screens = Hierarchy.Screens;
+            foreach (var layer in screens)
             {
-                _screens[screen.ScreenType] = screen;
-            }
-
-            foreach (var pair in _screens)
-            {
-                var screen = pair.Value;
-                ContainerReference.InjectAt(screen);
-                screen.Init();
+                ContainerReference.InjectAt(layer);
+                _uiScreens[layer.ScreenType] = layer;
+                layer.Init();
             }
         }
-
+        
         private void DisposeScreens()
         {
-            foreach (var pair in _screens)
+            foreach (var pair in _uiScreens)
             {
-                var screen = pair.Value;
-                screen.Dispose();
+                pair.Value.Dispose();
             }
         }
     }
